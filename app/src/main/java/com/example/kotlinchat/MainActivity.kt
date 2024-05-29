@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             KotlinChatTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize()) {
                     NavigationGraph(navController = navController)
                 }
             }
@@ -50,3 +50,4 @@ fun NavigationGraph(
             )
         }
     }
+}
