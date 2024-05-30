@@ -31,7 +31,8 @@ import com.example.kotlinchat.viewModel.RoomViewModel
 
 @Composable
 fun ChatRoomListScreen(
-    roomViewModel: RoomViewModel = viewModel()
+    roomViewModel: RoomViewModel = viewModel(),
+    onJoinClicked: (Room) -> Unit
 ) {
     val rooms by roomViewModel.rooms.observeAsState(emptyList())
     var showDialog by remember {
@@ -51,7 +52,7 @@ fun ChatRoomListScreen(
         // Display a list of chat rooms
         LazyColumn {
             items(rooms) { room ->
-                RoomItem(room = room)
+                RoomItem(room = room, onJoinClicked = {onJoinClicked(room)})
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -109,7 +110,7 @@ fun ChatRoomListScreen(
 }
 
 @Composable
-fun RoomItem(room: Room) {
+fun RoomItem(room: Room, onJoinClicked: (Room) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -118,7 +119,7 @@ fun RoomItem(room: Room) {
     ) {
         Text(text = room.name, fontSize = 16.sp, fontWeight = FontWeight.Normal)
         OutlinedButton(
-            onClick = { }
+            onClick = { onJoinClicked(room) }
         ) {
             Text("Join")
         }

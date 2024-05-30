@@ -15,6 +15,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlinchat.screens.ChatRoomListScreen
+import com.example.kotlinchat.screens.ChatScreen
 import com.example.kotlinchat.screens.LoginScreen
 import com.example.kotlinchat.screens.SignUpScreen
 import com.example.kotlinchat.ui.theme.KotlinChatTheme
@@ -60,7 +61,14 @@ fun NavigationGraph(
             }
         }
         composable(Screen.ChatRoomScreen.route){
-            ChatRoomListScreen()
+            ChatRoomListScreen{
+                navController.navigate("${Screen.ChatScreen.route}/${it.id}")
+            }
+        }
+        composable("${Screen.ChatScreen.route}/{roomId}") {
+            val roomId: String = it
+                .arguments?.getString("roomId") ?: ""
+            ChatScreen(roomId = roomId)
         }
     }
 }

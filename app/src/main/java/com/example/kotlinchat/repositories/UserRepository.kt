@@ -1,5 +1,6 @@
 package com.example.kotlinchat.repositories
 
+import android.util.Log
 import com.example.kotlinchat.data.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,4 +28,22 @@ class UserRepository(private val auth: FirebaseAuth,
         } catch (e: Exception) {
             Result.failure(e)
         }
+    suspend fun getCurrentUser(): Result<User> = try {
+        val uid = auth.currentUser?.email
+        if (uid != null) {
+            val userDocument = firestore.collection("users").document(uid).get().await()
+            val user = userDocument.toObject(User::class.java)
+            if (user != null) {
+                Log.d("user2","$uid")
+                Result.success(user)
+            } else {
+                Result.failure(Exception("User data not found"))
+            }
+        } else {
+            Result.failure(Exception("User not authenticated"))
+        }
+    } catch (e: Exception) {
+        Result.failure(e)
+    }
+
 }
