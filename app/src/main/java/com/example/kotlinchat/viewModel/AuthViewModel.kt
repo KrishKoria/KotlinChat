@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kotlinchat.UserRepository
+import com.example.kotlinchat.repositories.UserRepository
 import com.example.kotlinchat.objects.Injection
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch

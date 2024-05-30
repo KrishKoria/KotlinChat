@@ -1,4 +1,4 @@
-package com.example.kotlinchat
+package com.example.kotlinchat.repositories
 
 import com.example.kotlinchat.data.User
 import com.google.firebase.auth.FirebaseAuth
